@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {MyLink, QueryData} from "./MyLink";
+
 
 const App: React.FC = () => {
+  const data : QueryData = {
+    baseUrl: 'https://hamburgwhl.infomaxnet.de/whl-kalender/',
+    commonPrefix: '?form=search&widgetToken=YDV9T5VKk9s.&searchType=filter',
+    dateFrom: '2019-06-21',
+    dateTo: '2019-06-21',
+    timeFrom: 18,
+    locationId: 24,
+    location: 'Hamburg',
+    distance: 25,
+    categoryIds: [22]
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MyLink data={data} />
     </div>
   );
 }
