@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, FormEvent} from 'react';
 
 export interface QueryData {
     timeFrom: number;
@@ -54,20 +54,16 @@ const categoryMap = [
     {id: 37, categorytext: 'Hafenrundfahrten', code: '44'},
     {id: 38, categorytext: 'Stadtrundgänge & Führungen', code: '49'},
     {id: 39, categorytext: 'Weitere Rundgänge & Fahrten', code: '46'},
-    {id: 40, categorytext: '', code: '47'},
+    {id: 40, categorytext: 'Seminare, Kurse & Workshops (manuell)', code: '47'},
     {id: 41, categorytext: 'Radtouren', code: '36'},
-    {id: 42, categorytext: '', code: '51'}
+    {id: 42, categorytext: 'Vorträge und Diskussionsrunden (manuell)', code: '51'}
 ];
 
-function getCodeByText(ids: number[]) {
+function getCodeByText(ids: string[]) {
     if (ids.length === 0) {
         return '';
     }
-    const codes = categoryMap.filter(e => ids.includes(e.id)).map(e => e.code);
-    if (codes.length === 0) {
-        return '';
-    }
-    return '&' + codes.map(c => 'categoryIds%5B%5D=' + c).join('&');
+    return '&' + ids.map(c => 'categoryIds%5B%5D=' + c).join('&');
 }
 
 function convert(data: QueryData) {
@@ -88,7 +84,19 @@ function convert(data: QueryData) {
     return qdata;
 }
 
-export const MyLink: React.FC<any> = props => {
+export class MyLink extends Component<any> {
+
+    state = {
+        categoryIds: this.props.data.categoryIds.map((x: any) => x.toString())
+    };
+
+    handleSubmit(ids: string[]) {
+        console.log(ids)
+        this.setState({categoryIds: ids});
+    }
+
+    render() {
+        console.log("render");
         const {
             timeFrom,
             baseUrl,
@@ -99,8 +107,54 @@ export const MyLink: React.FC<any> = props => {
             dateTo,
             location,
             dateFrom
-        } = convert(props.data);
-        const url = baseUrl + commonPrefix + dateFrom + dateTo + timeFrom + locationId + location + distance + getCodeByText(categoryIds);
-        return (<a href={url}>{url}</a>);
+        } = convert(this.props.data);
+        const url = baseUrl + commonPrefix + dateFrom + dateTo + timeFrom + locationId + location + distance + getCodeByText(this.state.categoryIds);
+        console.log(url)
+        return <div>
+            <CategorySelect categoryIds={this.state.categoryIds} handleSubmit={this.handleSubmit.bind(this)}/>
+            <a href={url} target="_blank">{url}</a>
+        </div>
     }
-;
+}
+
+export class CategorySelect extends Component<any> {
+
+    private formRef = React.createRef<HTMLFormElement>();
+
+    state = {categoryIds: this.props.categoryIds}
+
+    _renderCategory(entry: any) {
+        const {categoryIds} = this.state;
+        return <div key={entry.id}>
+            <input type="checkbox"
+                   id={entry.id}
+                   defaultChecked={categoryIds.filter((id: any) => id === entry.id.toString()).length !== 0}
+                   value={entry.code}/>
+            <label htmlFor={entry.id}>{entry.categorytext}</label>
+        </div>
+    }
+
+    private handleChange = (e: FormEvent) => {
+        let current = this.formRef.current;
+        if (!current) {
+            return
+        }
+        current.dispatchEvent(new Event("submit"));
+    }
+
+    render() {
+        return <div>
+            <form ref={this.formRef} onChange={this.handleChange} onSubmit={this.handleSubmit}>
+                {categoryMap.map(c => this._renderCategory(c))}
+            </form>
+        </div>
+    }
+
+    private handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        let elements = e.target as HTMLFormElement;
+        const indexArray = [...Array.from(elements)].filter((e: any) => e.checked).map(e => (e as any).value);
+        this.setState({categoryIds: indexArray})
+        this.props.handleSubmit(indexArray);
+    }
+}
