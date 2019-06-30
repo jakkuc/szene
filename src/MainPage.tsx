@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import {getDateString} from "./App";
 import {CategorySelect} from "./CategorySelect";
+import Cookies from "js-cookie";
 
 export interface QueryData {
     timeFrom: number;
@@ -23,15 +24,23 @@ function getCodeByText(ids: string[]) {
     return '&' + ids.map(c => 'categoryIds%5B%5D=' + c).join('&');
 }
 
+function parseArray(array: string | undefined) {
+    if (array) {
+        return array.split(",");
+    }
+    return undefined;
+}
+
 export class MainPage extends Component<any> {
 
     state = {
-        categoryIds: this.props.data.categoryIds.map((x: any) => x.toString()),
+        categoryIds: parseArray(Cookies.get('szeneFilter')) || this.props.data.categoryIds,
         dateFrom: this.props.data.dateFrom || new Date(),
         dateTo: this.props.data.dateTo || new Date()
     };
 
     handleSubmit(ids: string[]) {
+        Cookies.set('szeneFilter', ids.join(","),{expires: 2000});
         this.setState({categoryIds: ids});
     }
 
@@ -79,24 +88,24 @@ export class MainPage extends Component<any> {
         return <div>
             <CategorySelect categoryIds={this.state.categoryIds} handleSubmit={this.handleSubmit.bind(this)}/>
             <div className={'container mt-3 mb-3'}>
-            <div className={'row'}>
-                <div className={"col-sm-6 col-12 align-self-start text-md-left"}>
-                    <h3>Startdatum</h3>
-                    <DatePicker
-                        selected={this.state.dateFrom}
-                        onChange={this.dateFromChange.bind(this)}
-                        dateFormat="yyyy-MM-dd"
-                    />
+                <div className={'row'}>
+                    <div className={"col-sm-6 col-12 align-self-start text-md-left"}>
+                        <h3>Startdatum</h3>
+                        <DatePicker
+                            selected={this.state.dateFrom}
+                            onChange={this.dateFromChange.bind(this)}
+                            dateFormat="yyyy-MM-dd"
+                        />
+                    </div>
+                    <div className={"col-sm-6 col-12 align-self-end text-md-right"}>
+                        <h3>Enddatum</h3>
+                        <DatePicker
+                            selected={this.state.dateTo}
+                            onChange={this.dateToChange.bind(this)}
+                            dateFormat="yyyy-MM-dd"
+                        />
+                    </div>
                 </div>
-                <div className={"col-sm-6 col-12 align-self-end text-md-right"}>
-                    <h3>Enddatum</h3>
-                    <DatePicker
-                        selected={this.state.dateTo}
-                        onChange={this.dateToChange.bind(this)}
-                        dateFormat="yyyy-MM-dd"
-                    />
-                </div>
-            </div>
             </div>
             <div className={'text-center m-4'}>
                 <a className={'btn btn-primary'} href={url} target="_blank">Zur Szene Hamburg</a>
