@@ -4,17 +4,18 @@ import "react-datepicker/dist/react-datepicker.css";
 import {getDateString} from "./App";
 import {CategorySelect} from "./CategorySelect";
 import Cookies from "js-cookie";
+import Button from "react-bootstrap/Button";
 
 export interface QueryData {
     timeFrom: number;
     baseUrl: string;
-    categoryIds: number[];
+    categoryIds: string[];
     commonPrefix: string;
     distance: number;
     locationId: number;
-    dateTo?: string;
+    dateTo?: Date;
     location: string;
-    dateFrom?: string;
+    dateFrom?: Date;
 }
 
 function getCodeByText(ids: string[]) {
@@ -24,23 +25,45 @@ function getCodeByText(ids: string[]) {
     return '&' + ids.map(c => 'categoryIds%5B%5D=' + c).join('&');
 }
 
-function parseArray(array: string | undefined) {
-    if (array) {
-        return array.split(",");
-    }
-    return undefined;
+interface MainPageProps {
+    data: QueryData,
+    useCookies: boolean
 }
 
-export class MainPage extends Component<any> {
+interface MainPageState {
+    dateFrom: Date,
+    dateTo: Date,
+    categoryIds: string[]
+}
 
-    state = {
-        categoryIds: parseArray(Cookies.get('szeneFilter')) || this.props.data.categoryIds,
+const cookieName = 'szeneFilter';
+
+export class MainPage extends Component<MainPageProps, MainPageState> {
+
+    state: MainPageState = {
+        categoryIds: this.parseArray(Cookies.get(cookieName)) || this.props.data.categoryIds,
         dateFrom: this.props.data.dateFrom || new Date(),
         dateTo: this.props.data.dateTo || new Date()
     };
 
+    private clearCookie() {
+        Cookies.remove(cookieName);
+    }
+
+    parseArray(array: string | undefined) {
+        if (!this.props.useCookies) {
+            return undefined;
+        }
+        if (array) {
+            return array.split(",");
+        }
+        return undefined;
+    }
+
     handleSubmit(ids: string[]) {
-        Cookies.set('szeneFilter', ids.join(","),{expires: 2000});
+        if (this.props.useCookies) {
+            Cookies.set(cookieName, ids.join(","), {expires: 2000});
+        }
         this.setState({categoryIds: ids});
     }
 
@@ -110,6 +133,16 @@ export class MainPage extends Component<any> {
             <div className={'text-center m-4'}>
                 <a className={'btn btn-primary'} href={url} target="_blank">Zur Szene Hamburg</a>
             </div>
+            {this._renderClearCookie()}
+        </div>
+    }
+
+    private _renderClearCookie() {
+        if (this.props.useCookies) {
+            return null;
+        }
+        return <div className={'text-right'}>
+            <Button className={'btn-secondary'} onClick={this.clearCookie.bind(this)}>Clear Cookie</Button>
         </div>
     }
 

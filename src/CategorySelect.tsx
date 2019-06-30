@@ -35,11 +35,12 @@ export class CategorySelect extends Component<any> {
     };
 
     render() {
-        return <div>
+        return <div className={'col-12'}>
+            <h3>Kategorienauswahl</h3>
             <form ref={this.formRef} onChange={this.handleChange} onSubmit={this.handleSubmit}>
                 {categoryMap.map(c => this._renderCategory(c))}
             </form>
-            <div>Ausgewählte Category Ids: {this.state.categoryIds.join(", ")}</div>
+            {/*<div>Ausgewählte Category Ids: {this.state.categoryIds.join(", ")}</div>*/}
         </div>
     }
 
