@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {MyLink, QueryData} from "./MyLink";
+import {MainPage, QueryData} from "./MainPage";
 
 export function getDateString(date? : Date) {
   const today = date ? date : new Date();
@@ -28,7 +28,7 @@ const App: React.FC = () => {
   };
   return (
     <div className="App">
-      <MyLink data={data} />
+      <MainPage data={data} />
     </div>
   );
 };
