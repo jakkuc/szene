@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.form-group input[type="checkbox"] + .btn-group {
+  width: 100%;
+}
+
+.form-group input[type="checkbox"] {
+  display: none;
+}
+
+.form-group input[type="checkbox"] + .btn-group label:last-child {
+  /*width: 80%;*/
+  text-align: left;
+}
+
+.form-group input[type="checkbox"] + .btn-group label:first-child {
+  min-width: 50px;
+  max-width: 50px;
+}
+
+.form-group input[type="checkbox"] + .btn-group label span.check-positive {
+  display: none;
+}
+.form-group input[type="checkbox"] + .btn-group label span.check-negative {
+  display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group label span.check-positive {
+  display: inline-block;
+}
+.form-group input[type="checkbox"]:checked + .btn-group label span.check-negative {
+  display: none;
+}

@@ -4,15 +4,17 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
-import {Route, Router} from 'react-router';
+import {Route, Router, Switch} from 'react-router';
 import history from './history'
 
 const jakobsDefaultCategories = [8, 54, 82, 120, 40, 47, 51].map((x: any) => x.toString());
 
 const routing = (
     <Router history={history}>
+        <Switch>
             <Route exact path="/" component={() => <App useCookies={true}/>}/>
             <Route exact path="/jakob" component={() => <App categoryIds={jakobsDefaultCategories} useCookies={false}/>}/>
+        </Switch>
     </Router>
 );
 

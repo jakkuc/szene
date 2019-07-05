@@ -5,6 +5,7 @@ import {getDateString} from "./App";
 import {CategorySelect} from "./CategorySelect";
 import Cookies from "js-cookie";
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export interface QueryData {
     timeFrom: number;
@@ -33,7 +34,8 @@ interface MainPageProps {
 interface MainPageState {
     dateFrom: Date,
     dateTo: Date,
-    categoryIds: string[]
+    categoryIds: string[],
+    timeFrom: number
 }
 
 const cookieName = 'szeneFilter';
@@ -43,7 +45,8 @@ export class MainPage extends Component<MainPageProps, MainPageState> {
     state: MainPageState = {
         categoryIds: this.parseArray(Cookies.get(cookieName)) || this.props.data.categoryIds,
         dateFrom: this.props.data.dateFrom || new Date(),
-        dateTo: this.props.data.dateTo || new Date()
+        dateTo: this.props.data.dateTo || new Date(),
+        timeFrom: this.props.data.timeFrom || 0
     };
 
     private clearCookie() {
@@ -75,6 +78,9 @@ export class MainPage extends Component<MainPageProps, MainPageState> {
                 break;
             case "dateTo":
                 value = getDateString(this.state.dateTo);
+                break;
+            case "timeFrom":
+                value = this.state.timeFrom;
                 break;
             default:
                 value = data[key];
@@ -128,6 +134,22 @@ export class MainPage extends Component<MainPageProps, MainPageState> {
                             dateFormat="yyyy-MM-dd"
                         />
                     </div>
+                </div>
+                <div className={'text-center m-4'}>
+                    <Dropdown onSelect={(eventKey: any) => {
+                        this.setState({timeFrom: eventKey})
+                    }}>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            Ab {this.state.timeFrom} Uhr?
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item eventKey={0}>0</Dropdown.Item>
+                            <Dropdown.Item eventKey={12}>12</Dropdown.Item>
+                            <Dropdown.Item eventKey={16}>16</Dropdown.Item>
+                            <Dropdown.Item eventKey={19}>19</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </div>
             </div>
             <div className={'text-center m-4'}>

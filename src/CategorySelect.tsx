@@ -1,7 +1,8 @@
-import React, {Component, FormEvent} from "react";
-import {InputGroup} from "react-bootstrap";
+import React, {Component, CSSProperties, FormEvent} from "react";
 import Form from "react-bootstrap/Form";
 import {categoryMap} from "./model/CategoryMap";
+import FontAwesome from "react-fontawesome";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 export class CategorySelect extends Component<any> {
 
@@ -11,19 +12,28 @@ export class CategorySelect extends Component<any> {
 
     _renderCategory(entry: any) {
         const {categoryIds} = this.state;
-        return <InputGroup key={entry.id}>
-            <InputGroup.Prepend>
-                <InputGroup.Checkbox
-                    defaultChecked={categoryIds.filter((id: any) => id === entry.code.toString()).length !== 0}
-                    aria-label="Checkbox for following text input"
-                    value={entry.code}
-                />
-            </InputGroup.Prepend>
-            <Form.Control
-                readOnly
-                id={entry.id}
-                value={entry.categorytext.toLocaleLowerCase()}/>
-        </InputGroup>
+        const resetCss : CSSProperties = {paddingLeft: 0, marginBottom: 3};
+        const marginBottom : CSSProperties = {marginBottom: 0};
+        return <Form.Check  type="checkbox" key={entry.id} className="form-group" style={resetCss}>
+            <Form.Check.Input
+                id={`name${entry.id}`}
+                name={`name${entry.id}`}
+                type="checkbox"
+                defaultChecked={categoryIds.filter((id: string) => id === entry.code.toString()).length !== 0}
+                value={entry.code}
+                autoComplete={'off'}
+            />
+            <div className="btn-group">
+                <label htmlFor={`name${entry.id}`} className="btn btn-secondary border" style={marginBottom}>
+                    <span className="check-positive"><FontAwesome name='check'/></span>
+                    <span className="check-negative"></span>
+                </label>
+                <label htmlFor={`name${entry.id}`} className="btn btn-outline- border" style={marginBottom}>
+                    {entry.categorytext.toLocaleLowerCase()}
+                </label>
+            </div>
+            {/*<Form.Check.Label htmlFor={entry.id} className="form-control">{entry.categorytext.toLocaleLowerCase()}</Form.Check.Label>*/}
+        </Form.Check>
     }
 
     private handleChange = (e: FormEvent) => {
@@ -46,9 +56,9 @@ export class CategorySelect extends Component<any> {
 
     private handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let elements = e.target as HTMLFormElement;
+        const elements = (e.target as HTMLFormElement).elements;
         const indexArray = [...Array.from(elements)].filter((e: any) => e.checked).map(e => (e as any).value);
-        this.setState({categoryIds: indexArray})
+        this.setState({categoryIds: indexArray});
         this.props.handleSubmit(indexArray);
     }
 }
