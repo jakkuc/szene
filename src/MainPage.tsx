@@ -119,7 +119,7 @@ export class MainPage extends Component<MainPageProps, MainPageState> {
             location,
             dateFrom
         } = this.convert(this.props.data);
-        const url = baseUrl + commonPrefix + dateFrom + dateTo + timeFrom + locationId + location + distance + getCodeByText(this.state.categoryIds);
+        const url = baseUrl + commonPrefix + dateFrom + dateTo + timeFrom + locationId + location + distance + getCodeByText(this.state.categoryIds) + '#-IMXEVENT-results';
         return <div>
             <CategorySelect categoryIds={this.state.categoryIds} handleSubmit={this.handleSubmit.bind(this)}/>
             <div className={'container'}>
