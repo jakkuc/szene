@@ -24,13 +24,14 @@ interface AppProps {
 const App: React.FC<AppProps> = ({categoryIds, useCookies}) => {
     const data: QueryData = {
         baseUrl: 'https://hamburgwhl.infomaxnet.de/whl-kalender/',
-        commonPrefix: '?form=search&widgetToken=YDV9T5VKk9s.&searchType=filter',
+        // commonPrefix: '?form=search&widgetToken=YDV9T5VKk9s.&searchType=filter',
+        commonPrefix: '?form=search&searchType=filter',
         // dateFrom: undefined,
         // dateTo: undefined,
         timeFrom: 0,
         locationId: 24,
         location: 'Hamburg',
-        distance: 25,
+        distance: 10,
         categoryIds: categoryIds || []
     };
     let _renderCookieConsent = <CookieConsent
