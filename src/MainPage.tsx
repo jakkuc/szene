@@ -6,7 +6,6 @@ import {CategorySelect} from "./CategorySelect";
 import Cookies from "js-cookie";
 import Button from "react-bootstrap/Button";
 import {MyDropdown} from "./MyDropdown";
-import Dropdown from "react-bootstrap/Dropdown";
 
 export interface QueryData {
     timeFrom: number;
@@ -52,7 +51,7 @@ export class MainPage extends Component<MainPageProps, MainPageState> {
         distance: this.props.data.distance || 10
     };
 
-    private clearCookie() {
+    private static clearCookie() {
         Cookies.remove(cookieName);
     }
 
@@ -154,7 +153,7 @@ export class MainPage extends Component<MainPageProps, MainPageState> {
                 </div>
             </div>
             <div className={'text-center m-4'}>
-                <a className={'btn btn-primary'} href={url} target="_blank">Zu Hamburg Tourismus</a>
+                <a className={'btn btn-primary'} href={url} target="_blank" rel="noopener noreferrer">Zu Hamburg Tourismus</a>
             </div>
             {this._renderClearCookie()}
         </div>

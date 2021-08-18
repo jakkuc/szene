@@ -37,7 +37,7 @@ const App: React.FC<AppProps> = ({categoryIds, useCookies}) => {
     };
     let _renderCookieConsent = <CookieConsent
         location="top"
-        buttonText="Ok"
+        buttonText="Agree"
         cookieName="cookieConsent"
         // style={{ background: "#2B373B" }}
         buttonStyle={{backgroundColor: "#007bff", fontSize: "13px"}}

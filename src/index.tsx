@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Route, Router, Switch} from 'react-router';
 import history from './history'
 
-const jakobsDefaultCategories = [8, 54, 82, 120, 40, 47, 51].map((x: any) => x.toString());
+const jakobsDefaultCategories = [115, 116, 117, 8, 3, 131, 92, 82, 40, 47, 51, 52].map((x: any) => x.toString());
 
 const routing = (
     <Router history={history}>
