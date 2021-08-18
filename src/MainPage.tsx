@@ -164,7 +164,7 @@ export class MainPage extends Component<MainPageProps, MainPageState> {
             return null;
         }
         return <div className={'text-right'}>
-            <Button className={'btn-secondary'} onClick={this.clearCookie.bind(this)}>Clear Cookie</Button>
+            <Button className={'btn-secondary'} onClick={MainPage.clearCookie.bind(this)}>Clear Cookie</Button>
         </div>
     }
 
