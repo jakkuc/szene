@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/szene/static/css/main.ab079514.chunk.css",
-    "main.js": "/szene/static/js/main.d44c817e.chunk.js",
-    "main.js.map": "/szene/static/js/main.d44c817e.chunk.js.map",
-    "runtime~main.js": "/szene/static/js/runtime~main.4f767c86.js",
-    "runtime~main.js.map": "/szene/static/js/runtime~main.4f767c86.js.map",
-    "static/css/2.0786472c.chunk.css": "/szene/static/css/2.0786472c.chunk.css",
-    "static/js/2.8a41baa2.chunk.js": "/szene/static/js/2.8a41baa2.chunk.js",
-    "static/js/2.8a41baa2.chunk.js.map": "/szene/static/js/2.8a41baa2.chunk.js.map",
-    "index.html": "/szene/index.html",
-    "precache-manifest.689c0254464dee3a0a56224586a886e8.js": "/szene/precache-manifest.689c0254464dee3a0a56224586a886e8.js",
-    "service-worker.js": "/szene/service-worker.js",
-    "static/css/2.0786472c.chunk.css.map": "/szene/static/css/2.0786472c.chunk.css.map",
-    "static/css/main.ab079514.chunk.css.map": "/szene/static/css/main.ab079514.chunk.css.map",
-    "static/media/all.css": "/szene/static/media/fa-solid-900.ef3df984.eot"
+    "main.css": "/szene.github.io/static/css/main.ab079514.chunk.css",
+    "main.js": "/szene.github.io/static/js/main.c5464c61.chunk.js",
+    "main.js.map": "/szene.github.io/static/js/main.c5464c61.chunk.js.map",
+    "runtime~main.js": "/szene.github.io/static/js/runtime~main.4039ba82.js",
+    "runtime~main.js.map": "/szene.github.io/static/js/runtime~main.4039ba82.js.map",
+    "static/css/2.1a2ba5fc.chunk.css": "/szene.github.io/static/css/2.1a2ba5fc.chunk.css",
+    "static/js/2.8a41baa2.chunk.js": "/szene.github.io/static/js/2.8a41baa2.chunk.js",
+    "static/js/2.8a41baa2.chunk.js.map": "/szene.github.io/static/js/2.8a41baa2.chunk.js.map",
+    "index.html": "/szene.github.io/index.html",
+    "precache-manifest.3bdb5e895a9e60bd2e9dd8819dee4f2c.js": "/szene.github.io/precache-manifest.3bdb5e895a9e60bd2e9dd8819dee4f2c.js",
+    "service-worker.js": "/szene.github.io/service-worker.js",
+    "static/css/2.1a2ba5fc.chunk.css.map": "/szene.github.io/static/css/2.1a2ba5fc.chunk.css.map",
+    "static/css/main.ab079514.chunk.css.map": "/szene.github.io/static/css/main.ab079514.chunk.css.map",
+    "static/media/all.css": "/szene.github.io/static/media/fa-solid-900.ef3df984.eot"
   }
 }
