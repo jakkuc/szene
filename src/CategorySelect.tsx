@@ -41,7 +41,17 @@ export class CategorySelect extends Component<any> {
         if (!current) {
             return
         }
-        current.dispatchEvent(new Event("submit"));
+        let tempState = this.state.categoryIds;
+        const row = e.target as HTMLFormElement;
+        if (row.checked && !this.state.categoryIds.includes(row.value)) {
+            tempState = this.state.categoryIds.concat(row.value);
+            this.setState({categoryIds: tempState});
+        }
+        if (!row.checked && this.state.categoryIds.includes(row.value)) {
+            tempState = this.state.categoryIds.filter((x:Number) => row.value !== x);
+            this.setState({categoryIds: tempState});
+        }
+        this.props.handleSubmit(tempState);
     };
 
     render() {

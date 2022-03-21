@@ -67,7 +67,7 @@ export class MainPage extends Component<MainPageProps, MainPageState> {
 
     handleSubmit(ids: string[]) {
         if (this.props.useCookies) {
-            Cookies.set(cookieName, ids.join(","), {expires: 2000});
+            Cookies.set(cookieName, ids.join(","), {expires: 2000, sameSite: 'strict'});
         }
         this.setState({categoryIds: ids});
     }
